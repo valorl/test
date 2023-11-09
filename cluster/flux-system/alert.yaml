@@ -1,0 +1,23 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: webhook
+  namespace: flux-system
+spec:
+  type: generic
+  address: https://webhook.site/a4c70269-a708-439d-bdc0-4d6410ae3bd1
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: webhook
+  namespace: flux-system
+spec:
+  summary: "hello"
+  providerRef:
+    name: webhook
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: '*'
