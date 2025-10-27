@@ -1,0 +1,29 @@
+bundle: {
+	apiVersion: "v1alpha1"
+	name:       "flux-aio"
+	instances: {
+		"flux": {
+			module: {
+				url:     "oci://ghcr.io/stefanprodan/modules/flux-aio"
+				version: "latest"
+			}
+			namespace: "flux-system"
+			values: {
+				hostNetwork:     true
+				securityProfile: "privileged"
+				controllers: notification: enabled: false
+			}
+		},
+		// flux instance omitted for brevity
+		"test": {
+			module: url: "oci://ghcr.io/stefanprodan/modules/flux-git-sync"
+			namespace: "flux-system"
+			values: git: {
+				url:  "https://github.com/valorl/test"
+				ref:  "refs/heads/main"
+				path: "./resources"
+			}
+	    }
+    }
+}
+

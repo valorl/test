@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  namespace: default
+  labels:
+    app: test-app
+    auto-sa: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      serviceAccountName: test-auto-sa
+      containers:
+      - name: app
+        image: nginx:alpine
